@@ -1,4 +1,5 @@
 import { formatDateRange, vehicleNeedsAttention } from "../lib/expiry";
+import { useLanguage } from "../lib/i18n";
 import type { Vehicle } from "../types";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function VehicleCard({ vehicle, onClick }: Props) {
+  const { t } = useLanguage();
   const needsAttention = vehicleNeedsAttention(vehicle);
 
   return (
@@ -19,25 +21,25 @@ export default function VehicleCard({ vehicle, onClick }: Props) {
         {vehicle.brand} {vehicle.model}
       </h3>
       <dl>
-        <dt>Civil liability</dt>
+        <dt>{t("civilLiability")}</dt>
         <dd>{formatDateRange(vehicle.civil_liability_from, vehicle.civil_liability_to)}</dd>
-        <dt>Comprehensive insurance</dt>
+        <dt>{t("comprehensiveInsurance")}</dt>
         <dd>
           {formatDateRange(
             vehicle.comprehensive_insurance_from,
             vehicle.comprehensive_insurance_to
           )}
         </dd>
-        <dt>Inspection</dt>
+        <dt>{t("inspection")}</dt>
         <dd>{formatDateRange(vehicle.inspection_from, vehicle.inspection_to)}</dd>
-        <dt>Fire extinguisher</dt>
+        <dt>{t("fireExtinguisher")}</dt>
         <dd>{formatDateRange(vehicle.fire_extinguisher_from, vehicle.fire_extinguisher_to)}</dd>
-        <dt>Oil change</dt>
-        <dd>{vehicle.oil_change_km != null ? `${vehicle.oil_change_km} km` : "—"}</dd>
-        <dt>Tyres</dt>
+        <dt>{t("oilChange")}</dt>
+        <dd>{vehicle.oil_change_km != null ? `${vehicle.oil_change_km} ${t("km")}` : "—"}</dd>
+        <dt>{t("tyres")}</dt>
         <dd>
-          Summer: {vehicle.tyres_summer} · Winter: {vehicle.tyres_winter} · All-season:{" "}
-          {vehicle.tyres_allseason}
+          {t("summer")}: {vehicle.tyres_summer} · {t("winter")}: {vehicle.tyres_winter} ·{" "}
+          {t("allSeason")}: {vehicle.tyres_allseason}
         </dd>
       </dl>
     </button>

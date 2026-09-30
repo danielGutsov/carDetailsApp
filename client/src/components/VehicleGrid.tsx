@@ -1,3 +1,4 @@
+import { useLanguage } from "../lib/i18n";
 import type { Vehicle } from "../types";
 import VehicleCard from "./VehicleCard";
 
@@ -7,8 +8,10 @@ interface Props {
 }
 
 export default function VehicleGrid({ vehicles, onSelect }: Props) {
+  const { t } = useLanguage();
+
   if (vehicles.length === 0) {
-    return <p className="empty-state">No vehicles yet. Press "+" to add your first one.</p>;
+    return <p className="empty-state">{t("noVehiclesYet")}</p>;
   }
 
   return (

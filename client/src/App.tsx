@@ -6,17 +6,20 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { AuthProvider, useAuth } from "./lib/AuthContext";
+import { LanguageProvider, useLanguage } from "./lib/i18n";
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
-  if (loading) return <div className="page-loading">Loading…</div>;
+  const { t } = useLanguage();
+  if (loading) return <div className="page-loading">{t("loading")}</div>;
   if (!user) return <Navigate to="/login" replace />;
   return <>{children}</>;
 }
 
 function AdminRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
-  if (loading) return <div className="page-loading">Loading…</div>;
+  const { t } = useLanguage();
+  if (loading) return <div className="page-loading">{t("loading")}</div>;
   if (!user) return <Navigate to="/login" replace />;
   if (!user.is_admin) return <Navigate to="/" replace />;
   return <>{children}</>;
@@ -24,7 +27,8 @@ function AdminRoute({ children }: { children: ReactNode }) {
 
 function PublicOnlyRoute({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
-  if (loading) return <div className="page-loading">Loading…</div>;
+  const { t } = useLanguage();
+  if (loading) return <div className="page-loading">{t("loading")}</div>;
   if (user) return <Navigate to="/" replace />;
   return <>{children}</>;
 }
@@ -79,9 +83,11 @@ function AppRoutes() {
 export default function App() {
   return (
     <Router>
-      <AuthProvider>
-        <AppRoutes />
-      </AuthProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          <AppRoutes />
+        </AuthProvider>
+      </LanguageProvider>
     </Router>
   );
 }

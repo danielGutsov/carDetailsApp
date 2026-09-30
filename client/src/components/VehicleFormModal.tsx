@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { translateError, useLanguage } from "../lib/i18n";
 import type { Vehicle, VehicleInput } from "../types";
 
 interface Props {
@@ -26,6 +27,7 @@ const emptyForm: VehicleInput = {
 };
 
 export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }: Props) {
+  const { t, lang } = useLanguage();
   const [form, setForm] = useState<VehicleInput>(
     vehicle
       ? {
@@ -65,7 +67,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
     try {
       await onSave(form);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
+      setError(err instanceof Error ? translateError(err.message, lang) : t("somethingWrong"));
     } finally {
       setSubmitting(false);
     }
@@ -81,7 +83,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
     try {
       await onDelete(vehicle.id);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
+      setError(err instanceof Error ? translateError(err.message, lang) : t("somethingWrong"));
       setSubmitting(false);
       setConfirmingDelete(false);
     }
@@ -94,11 +96,11 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleSubmit}
       >
-        <h2>{vehicle ? "Edit vehicle" : "Add vehicle"}</h2>
+        <h2>{vehicle ? t("editVehicle") : t("addVehicleTitle")}</h2>
 
         <div className="field-row">
           <label>
-            Brand
+            {t("brand")}
             <input
               value={form.brand}
               onChange={(e) => setField("brand", e.target.value)}
@@ -106,7 +108,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
             />
           </label>
           <label>
-            Model
+            {t("model")}
             <input
               value={form.model}
               onChange={(e) => setField("model", e.target.value)}
@@ -116,10 +118,10 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
         </div>
 
         <fieldset>
-          <legend>Civil liability</legend>
+          <legend>{t("civilLiability")}</legend>
           <div className="field-row">
             <label>
-              From
+              {t("from")}
               <input
                 type="date"
                 value={form.civil_liability_from ?? ""}
@@ -127,7 +129,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
               />
             </label>
             <label>
-              To
+              {t("to")}
               <input
                 type="date"
                 value={form.civil_liability_to ?? ""}
@@ -138,10 +140,10 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
         </fieldset>
 
         <fieldset>
-          <legend>Comprehensive insurance</legend>
+          <legend>{t("comprehensiveInsurance")}</legend>
           <div className="field-row">
             <label>
-              From
+              {t("from")}
               <input
                 type="date"
                 value={form.comprehensive_insurance_from ?? ""}
@@ -151,7 +153,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
               />
             </label>
             <label>
-              To
+              {t("to")}
               <input
                 type="date"
                 value={form.comprehensive_insurance_to ?? ""}
@@ -164,10 +166,10 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
         </fieldset>
 
         <fieldset>
-          <legend>Inspection</legend>
+          <legend>{t("inspection")}</legend>
           <div className="field-row">
             <label>
-              From
+              {t("from")}
               <input
                 type="date"
                 value={form.inspection_from ?? ""}
@@ -175,7 +177,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
               />
             </label>
             <label>
-              To
+              {t("to")}
               <input
                 type="date"
                 value={form.inspection_to ?? ""}
@@ -186,10 +188,10 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
         </fieldset>
 
         <fieldset>
-          <legend>Fire extinguisher</legend>
+          <legend>{t("fireExtinguisher")}</legend>
           <div className="field-row">
             <label>
-              From
+              {t("from")}
               <input
                 type="date"
                 value={form.fire_extinguisher_from ?? ""}
@@ -197,7 +199,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
               />
             </label>
             <label>
-              To
+              {t("to")}
               <input
                 type="date"
                 value={form.fire_extinguisher_to ?? ""}
@@ -208,9 +210,9 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
         </fieldset>
 
         <fieldset>
-          <legend>Oil change</legend>
+          <legend>{t("oilChange")}</legend>
           <label>
-            Kilometers
+            {t("kilometers")}
             <input
               type="number"
               min={0}
@@ -223,10 +225,10 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
         </fieldset>
 
         <fieldset>
-          <legend>Tyres (count)</legend>
+          <legend>{t("tyresCount")}</legend>
           <div className="field-row">
             <label>
-              Summer
+              {t("summer")}
               <input
                 type="number"
                 min={0}
@@ -235,7 +237,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
               />
             </label>
             <label>
-              Winter
+              {t("winter")}
               <input
                 type="number"
                 min={0}
@@ -244,7 +246,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
               />
             </label>
             <label>
-              All-season
+              {t("allSeason")}
               <input
                 type="number"
                 min={0}
@@ -266,7 +268,7 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
                 onClick={handleDelete}
                 disabled={submitting}
               >
-                {confirmingDelete ? "Confirm delete?" : "Delete"}
+                {confirmingDelete ? t("confirmDelete") : t("delete")}
               </button>
               {confirmingDelete && (
                 <button
@@ -275,17 +277,17 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
                   onClick={() => setConfirmingDelete(false)}
                   disabled={submitting}
                 >
-                  Keep it
+                  {t("keepIt")}
                 </button>
               )}
             </div>
           )}
           <div className="modal-actions-right">
             <button type="button" className="btn-secondary" onClick={onClose} disabled={submitting}>
-              Cancel
+              {t("cancel")}
             </button>
             <button type="submit" disabled={submitting}>
-              {submitting ? "Saving…" : "Save"}
+              {submitting ? t("saving") : t("save")}
             </button>
           </div>
         </div>

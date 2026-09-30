@@ -1,10 +1,13 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import LanguageToggle from "../components/LanguageToggle";
 import { ApiError } from "../lib/api";
 import { useAuth } from "../lib/AuthContext";
+import { translateError, useLanguage } from "../lib/i18n";
 
 export default function Register() {
   const { register } = useAuth();
+  const { t, lang } = useLanguage();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +22,9 @@ export default function Register() {
       await register(email, password);
       navigate("/");
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Something went wrong");
+      setError(
+        err instanceof ApiError ? translateError(err.message, lang) : t("somethingWrong")
+      );
     } finally {
       setSubmitting(false);
     }
@@ -27,12 +32,15 @@ export default function Register() {
 
   return (
     <div className="auth-page">
+      <div className="auth-lang-toggle">
+        <LanguageToggle />
+      </div>
       <form className="auth-card" onSubmit={handleSubmit}>
-        <h1>Vehicle Reminder</h1>
-        <p className="auth-subtitle">Create your account</p>
+        <h1>{t("appTitle")}</h1>
+        <p className="auth-subtitle">{t("createAccountSubtitle")}</p>
 
         <label>
-          Username (email)
+          {t("usernameEmail")}
           <input
             type="email"
             value={email}
@@ -42,7 +50,7 @@ export default function Register() {
           />
         </label>
         <label>
-          Password
+          {t("password")}
           <input
             type="password"
             value={password}
@@ -55,11 +63,11 @@ export default function Register() {
         {error && <p className="form-error">{error}</p>}
 
         <button type="submit" disabled={submitting}>
-          {submitting ? "Creating account…" : "Create account"}
+          {submitting ? t("creatingAccount") : t("createAccount")}
         </button>
 
         <p className="auth-switch">
-          Already have an account? <Link to="/login">Sign in</Link>
+          {t("alreadyHaveAccount")} <Link to="/login">{t("signIn")}</Link>
         </p>
       </form>
     </div>

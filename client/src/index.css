@@ -79,9 +79,18 @@ legend {
 .auth-page {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 16px;
+}
+
+.auth-lang-toggle {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
 }
 
 .auth-card {
@@ -150,8 +159,10 @@ legend {
 
 .dashboard-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
@@ -162,6 +173,7 @@ legend {
 
 .header-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
 }
@@ -192,6 +204,26 @@ legend {
 }
 
 .view-toggle button.active {
+  background: var(--color-primary);
+  color: white;
+}
+
+.lang-toggle {
+  display: inline-flex;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.lang-toggle button {
+  border: none;
+  border-radius: 0;
+  background: var(--color-surface);
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.lang-toggle button.active {
   background: var(--color-primary);
   color: white;
 }

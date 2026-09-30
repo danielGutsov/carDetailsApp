@@ -1,4 +1,5 @@
 import { formatDateRange, vehicleNeedsAttention } from "../lib/expiry";
+import { useLanguage } from "../lib/i18n";
 import type { Vehicle } from "../types";
 
 interface Props {
@@ -7,8 +8,10 @@ interface Props {
 }
 
 export default function VehicleTable({ vehicles, onSelect }: Props) {
+  const { t } = useLanguage();
+
   if (vehicles.length === 0) {
-    return <p className="empty-state">No vehicles yet. Press "+" to add your first one.</p>;
+    return <p className="empty-state">{t("noVehiclesYet")}</p>;
   }
 
   return (
@@ -16,13 +19,13 @@ export default function VehicleTable({ vehicles, onSelect }: Props) {
       <table className="vehicle-table">
         <thead>
           <tr>
-            <th>Brand / Model</th>
-            <th>Civil liability</th>
-            <th>Comprehensive insurance</th>
-            <th>Inspection</th>
-            <th>Fire extinguisher</th>
-            <th>Oil change</th>
-            <th>Tyres (S/W/A)</th>
+            <th>{t("brandModel")}</th>
+            <th>{t("civilLiability")}</th>
+            <th>{t("comprehensiveInsurance")}</th>
+            <th>{t("inspection")}</th>
+            <th>{t("fireExtinguisher")}</th>
+            <th>{t("oilChange")}</th>
+            <th>{t("tyresShort")}</th>
           </tr>
         </thead>
         <tbody>
@@ -41,7 +44,7 @@ export default function VehicleTable({ vehicles, onSelect }: Props) {
               </td>
               <td>{formatDateRange(v.inspection_from, v.inspection_to)}</td>
               <td>{formatDateRange(v.fire_extinguisher_from, v.fire_extinguisher_to)}</td>
-              <td>{v.oil_change_km != null ? `${v.oil_change_km} km` : "—"}</td>
+              <td>{v.oil_change_km != null ? `${v.oil_change_km} ${t("km")}` : "—"}</td>
               <td>
                 {v.tyres_summer} / {v.tyres_winter} / {v.tyres_allseason}
               </td>
