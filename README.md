@@ -1,6 +1,6 @@
 # Vehicle Reminder
 
-Tracks insurance, inspection, fire extinguisher validity, and tyre counts per vehicle, with a red warning when something expires within 30 days.
+Tracks insurance, inspection, fire extinguisher validity, and tyre counts per vehicle, with a red warning when something expires within 10 days.
 
 ## Structure
 - `server/` — Express + TypeScript + SQLite API (auth, vehicles CRUD)

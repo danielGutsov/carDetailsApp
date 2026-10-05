@@ -1,6 +1,6 @@
 import type { Vehicle } from "../types";
 
-const WARNING_WINDOW_DAYS = 30;
+const WARNING_WINDOW_DAYS = 10;
 
 /** True when the date is already past, or within WARNING_WINDOW_DAYS from today. */
 export function isExpiringSoon(dateStr: string | null): boolean {
