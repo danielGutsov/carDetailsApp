@@ -22,6 +22,7 @@ export function vehicleNeedsAttention(vehicle: Vehicle): boolean {
     isExpiringSoon(vehicle.civil_liability_to) ||
     isExpiringSoon(vehicle.comprehensive_insurance_to) ||
     isExpiringSoon(vehicle.inspection_to) ||
+    isExpiringSoon(vehicle.vignette_to) ||
     isExpiringSoon(vehicle.fire_extinguisher_to)
   );
 }

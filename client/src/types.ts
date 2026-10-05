@@ -14,6 +14,8 @@ export interface Vehicle {
   comprehensive_insurance_to: string | null;
   inspection_from: string | null;
   inspection_to: string | null;
+  vignette_from: string | null;
+  vignette_to: string | null;
   fire_extinguisher_from: string | null;
   fire_extinguisher_to: string | null;
   oil_change_km: number | null;

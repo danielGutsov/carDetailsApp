@@ -23,6 +23,7 @@ export default function VehicleTable({ vehicles, onSelect }: Props) {
             <th>{t("civilLiability")}</th>
             <th>{t("comprehensiveInsurance")}</th>
             <th>{t("inspection")}</th>
+            <th>{t("vignette")}</th>
             <th>{t("fireExtinguisher")}</th>
             <th>{t("oilChange")}</th>
             <th>{t("tyresShort")}</th>
@@ -43,6 +44,7 @@ export default function VehicleTable({ vehicles, onSelect }: Props) {
                 {formatDateRange(v.comprehensive_insurance_from, v.comprehensive_insurance_to)}
               </td>
               <td>{formatDateRange(v.inspection_from, v.inspection_to)}</td>
+              <td>{formatDateRange(v.vignette_from, v.vignette_to)}</td>
               <td>{formatDateRange(v.fire_extinguisher_from, v.fire_extinguisher_to)}</td>
               <td>{v.oil_change_km != null ? `${v.oil_change_km} ${t("km")}` : "—"}</td>
               <td>

@@ -17,6 +17,8 @@ const vehicleSchema = z.object({
   comprehensive_insurance_to: dateField,
   inspection_from: dateField,
   inspection_to: dateField,
+  vignette_from: dateField,
+  vignette_to: dateField,
   fire_extinguisher_from: dateField,
   fire_extinguisher_to: dateField,
   oil_change_km: z.number().int().min(0).nullish(),
@@ -36,6 +38,8 @@ type VehicleRow = {
   comprehensive_insurance_to: string | null;
   inspection_from: string | null;
   inspection_to: string | null;
+  vignette_from: string | null;
+  vignette_to: string | null;
   fire_extinguisher_from: string | null;
   fire_extinguisher_to: string | null;
   oil_change_km: number | null;
@@ -70,9 +74,10 @@ vehiclesRouter.post("/", (req, res) => {
       `INSERT INTO vehicles
         (user_id, brand, model, civil_liability_from, civil_liability_to,
          comprehensive_insurance_from, comprehensive_insurance_to,
-         inspection_from, inspection_to, fire_extinguisher_from, fire_extinguisher_to,
+         inspection_from, inspection_to, vignette_from, vignette_to,
+         fire_extinguisher_from, fire_extinguisher_to,
          oil_change_km, tyres_summer, tyres_winter, tyres_allseason)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
     )
     .run(
       req.userId,
@@ -84,6 +89,8 @@ vehiclesRouter.post("/", (req, res) => {
       v.comprehensive_insurance_to ?? null,
       v.inspection_from ?? null,
       v.inspection_to ?? null,
+      v.vignette_from ?? null,
+      v.vignette_to ?? null,
       v.fire_extinguisher_from ?? null,
       v.fire_extinguisher_to ?? null,
       v.oil_change_km ?? null,
@@ -123,6 +130,7 @@ vehiclesRouter.put("/:id", (req, res) => {
       civil_liability_from = ?, civil_liability_to = ?,
       comprehensive_insurance_from = ?, comprehensive_insurance_to = ?,
       inspection_from = ?, inspection_to = ?,
+      vignette_from = ?, vignette_to = ?,
       fire_extinguisher_from = ?, fire_extinguisher_to = ?,
       oil_change_km = ?,
       tyres_summer = ?, tyres_winter = ?, tyres_allseason = ?,
@@ -137,6 +145,8 @@ vehiclesRouter.put("/:id", (req, res) => {
     v.comprehensive_insurance_to ?? null,
     v.inspection_from ?? null,
     v.inspection_to ?? null,
+    v.vignette_from ?? null,
+    v.vignette_to ?? null,
     v.fire_extinguisher_from ?? null,
     v.fire_extinguisher_to ?? null,
     v.oil_change_km ?? null,

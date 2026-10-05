@@ -18,6 +18,8 @@ const emptyForm: VehicleInput = {
   comprehensive_insurance_to: null,
   inspection_from: null,
   inspection_to: null,
+  vignette_from: null,
+  vignette_to: null,
   fire_extinguisher_from: null,
   fire_extinguisher_to: null,
   oil_change_km: null,
@@ -39,6 +41,8 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
           comprehensive_insurance_to: vehicle.comprehensive_insurance_to,
           inspection_from: vehicle.inspection_from,
           inspection_to: vehicle.inspection_to,
+          vignette_from: vehicle.vignette_from,
+          vignette_to: vehicle.vignette_to,
           fire_extinguisher_from: vehicle.fire_extinguisher_from,
           fire_extinguisher_to: vehicle.fire_extinguisher_to,
           oil_change_km: vehicle.oil_change_km,
@@ -182,6 +186,28 @@ export default function VehicleFormModal({ vehicle, onClose, onSave, onDelete }:
                 type="date"
                 value={form.inspection_to ?? ""}
                 onChange={(e) => setField("inspection_to", dateOrNull(e.target.value))}
+              />
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>{t("vignette")}</legend>
+          <div className="field-row">
+            <label>
+              {t("from")}
+              <input
+                type="date"
+                value={form.vignette_from ?? ""}
+                onChange={(e) => setField("vignette_from", dateOrNull(e.target.value))}
+              />
+            </label>
+            <label>
+              {t("to")}
+              <input
+                type="date"
+                value={form.vignette_to ?? ""}
+                onChange={(e) => setField("vignette_to", dateOrNull(e.target.value))}
               />
             </label>
           </div>

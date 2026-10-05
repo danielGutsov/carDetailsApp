@@ -29,6 +29,8 @@ db.exec(`
     comprehensive_insurance_to TEXT,
     inspection_from TEXT,
     inspection_to TEXT,
+    vignette_from TEXT,
+    vignette_to TEXT,
     fire_extinguisher_from TEXT,
     fire_extinguisher_to TEXT,
     oil_change_km INTEGER,
@@ -58,6 +60,13 @@ if (!existingColumns.has("comprehensive_insurance_from")) {
   db.exec(`
     ALTER TABLE vehicles ADD COLUMN comprehensive_insurance_from TEXT;
     ALTER TABLE vehicles ADD COLUMN comprehensive_insurance_to TEXT;
+  `);
+}
+
+if (!existingColumns.has("vignette_from")) {
+  db.exec(`
+    ALTER TABLE vehicles ADD COLUMN vignette_from TEXT;
+    ALTER TABLE vehicles ADD COLUMN vignette_to TEXT;
   `);
 }
 

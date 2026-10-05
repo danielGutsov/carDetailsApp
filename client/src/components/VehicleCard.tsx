@@ -32,6 +32,8 @@ export default function VehicleCard({ vehicle, onClick }: Props) {
         </dd>
         <dt>{t("inspection")}</dt>
         <dd>{formatDateRange(vehicle.inspection_from, vehicle.inspection_to)}</dd>
+        <dt>{t("vignette")}</dt>
+        <dd>{formatDateRange(vehicle.vignette_from, vehicle.vignette_to)}</dd>
         <dt>{t("fireExtinguisher")}</dt>
         <dd>{formatDateRange(vehicle.fire_extinguisher_from, vehicle.fire_extinguisher_to)}</dd>
         <dt>{t("oilChange")}</dt>
